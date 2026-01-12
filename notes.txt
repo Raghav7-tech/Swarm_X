@@ -1,0 +1,3 @@
+Blind Search (Dijkstra's): You check every street in a perfect circle around you, expanding outward until you hit the shop. It guarantees you find the closest path, but you waste time checking streets in the completely opposite direction.
+Greedy Search: You only walk down streets that look like they point toward the shop. You might run into a dead-end or a wall and have to backtrack.
+A Search:* You look at a street and say: "Okay, this street is short (low $g$) AND it points toward the shop (low $h$)." You pick that one. If you hit a wall, you remember the other promising streets you skipped and try the next best one.

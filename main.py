@@ -15,8 +15,8 @@ BUILDING_FILL = (15, 25, 20)
 BUILDING_OUTLINE = (0, 180, 80) 
 
 # --- DRONE PRIORITY COLORS ---
-COLOR_COMMERCIAL = (0, 255, 255) # Cyan (Low)
-COLOR_MILITARY = (138, 43, 226)  # Purple (Med)
+COLOR_COMMERCIAL = (0, 255, 0) # green (Low)
+COLOR_MILITARY = (0, 0, 255)  # Blue (Med)
 COLOR_MEDICAL = (255, 0, 0)      # Red (High)
 
 # --- STATUS COLORS ---
@@ -26,9 +26,7 @@ COLOR_YIELD = (255, 140, 0)      # Orange
 COLOR_DEAD = (50, 50, 50)        # Grey
 COLOR_REROUTE = (255, 0, 255)    # Magenta
 COLOR_OVERFLY = (255, 255, 255)  # White
-
 SELECTION_COLOR = (255, 255, 255) 
-
 # --- A* PATHFINDING ENGINE ---
 class Pathfinder:
     def __init__(self, width, height, cell_size):
@@ -40,7 +38,7 @@ class Pathfinder:
     def add_obstacle(self, rect):
         # Zero padding allows drones to attempt tight gaps.
         # Physics engine handles the safety cushion.
-        padding = 0 
+        padding = 0
         start_c = max(0, (rect.left // self.cell_size) - padding)
         end_c = min(self.cols, (rect.right // self.cell_size) + 1 + padding)
         start_r = max(0, (rect.top // self.cell_size) - padding)
@@ -80,7 +78,7 @@ class Pathfinder:
         current_obstacles = self.obstacles
         if temp_obstacles:
             current_obstacles = self.obstacles.union(temp_obstacles)
-
+             
         while queue:
             current = heapq.heappop(queue)[1] 
             if current == end: break 
@@ -88,8 +86,8 @@ class Pathfinder:
             for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]:
                 next_node = (current[0] + dx, current[1] + dy)
                 if (0 <= next_node[0] < self.cols and 0 <= next_node[1] < self.rows and next_node not in current_obstacles):
-                    # Diagonals cost more (1.4) vs Straight (1.0)
-                    move_cost = 1.4 if dx != 0 and dy != 0 else 1.0
+                    # Diagonals cost more (1.42) vs Straight (1.0)
+                    move_cost = 1.42 if dx != 0 and dy != 0 else 1.0
                     new_cost = cost_so_far[current] + move_cost
                     
                     if next_node not in cost_so_far or new_cost < cost_so_far[next_node]:
@@ -117,7 +115,7 @@ class Building:
     def draw(self, screen):
         pygame.draw.rect(screen, BUILDING_FILL, self.rect)   
         pygame.draw.rect(screen, BUILDING_OUTLINE, self.rect, 1) 
-
+#----------------------------------------------------------
 # --- DRONE AGENT ---
 class Drone:
     def __init__(self, x, y, uid_num, fixed_priority):
