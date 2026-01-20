@@ -20,11 +20,10 @@ class Drone:
         elif self.priority == PRIORITY_MIL: self.color_base = COLOR_MILITARY; self.type_str = "MIL"
         elif self.priority == PRIORITY_MED: self.color_base = COLOR_MEDICAL; self.type_str = "MED"
         self.id_str = f"{self.type_str}-{uid_num:02d}"  
- 
-        self.final_target = None  
+        self.final_target = None   
         self.stuck_timer = 0      
         self.yield_timer = 0      
-        self.temp_avoid_spots = set() 
+        self.temp_avoid_spots = set()   
         self.is_overflying = False    
         self.last_pos = self.pos.copy() 
         self.check_progress_timer = 0   
@@ -40,7 +39,7 @@ class Drone:
         self.check_progress_timer = 0
         self.patience_timer = 0
         self.temp_avoid_spots = set()
-        self.last_dist_to_target = np.linalg.norm(self.pos - self.final_target)
+        self.last_dist_to_target = np.linalg.norm(self.pos - self.final_target) 
 
     def launch(self):
         if self.status == "READY" and self.alive:
@@ -83,11 +82,10 @@ class Drone:
             self.stuck_timer = 0
             self.patience_timer = 0
             self.last_dist_to_target = np.linalg.norm(self.pos - self.final_target)
-            print(f"🔄 {self.id_str} Route Updated!")
+            print(f" {self.id_str} Route Updated!")
         else:
-            print(f"❌ {self.id_str} No Route Found.")
-            self.status = "IDLE"
-
+            print(f" {self.id_str} No Route Found.")
+            self.status = "IDLE" 
     def update(self, all_drones, buildings, pathfinder):
         if not self.alive: return
          

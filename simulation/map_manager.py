@@ -3,19 +3,16 @@ import random
 from settings import * 
 class Building:
     def __init__(self, x, y, w, h): 
-        self.rect=pygame.Rect(x,y,w,h)
-         
+        self.rect=pygame.Rect(x,y,w,h) 
     def draw(self, screen): 
         pygame.draw.rect(screen, BUILDING_FILL, self.rect)
-        pygame.draw.rect(screen, BUILDING_OUTLINE, self.rect, 1)
-
-
+        pygame.draw.rect(screen, BUILDING_OUTLINE, self.rect, 1) 
 def generate_city(pathfinder, width, height): 
-    print("Generating City...")
+    print("Generating a random City...")
     buildings = [] 
     MAIN_ROAD_WIDTH = 80
-    BLOCK_SIZE = 250 
-    for bx in  range(50, width - 50, BLOCK_SIZE + MAIN_ROAD_WIDTH):
+    BLOCK_SIZE = 250
+    for bx in  range(50, width - 50,BLOCK_SIZE + MAIN_ROAD_WIDTH):
         for by in range(50, height - 50, BLOCK_SIZE + MAIN_ROAD_WIDTH):
             current_x = bx
             while current_x < bx + BLOCK_SIZE:
@@ -39,3 +36,4 @@ def generate_city(pathfinder, width, height):
 
             
     return buildings
+
