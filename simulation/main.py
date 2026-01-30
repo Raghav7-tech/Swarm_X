@@ -15,10 +15,9 @@ def main():
     clock = pygame.time.Clock() 
     pathfinder = Pathfinder(SCREEN_W, SCREEN_H, CELL_SIZE) 
     buildings = generate_city(pathfinder, SCREEN_W, SCREEN_H) 
-    drones = []
-    selected_drone = None
-    spawn_mode = PRIORITY_COM  
-    
+    drones = [] 
+    selected_drone = None 
+    spawn_mode = PRIORITY_COM      
     print("\n--- CONTROLS ---")
     print("[SPACE] : Spawn Drone")
     print("[L-CLICK]: Select Drone")
@@ -34,10 +33,10 @@ def main():
             if event.type == pygame.QUIT: 
                 running = False 
             
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN: 
                 mx, my = pygame.mouse.get_pos() 
                  
-                if event.button == 1:
+                if event.button == 1: 
                     clicked_something = False
                     for d in drones: 
                         if np.linalg.norm(d.pos - np.array([mx, my])) < 20: 
@@ -49,8 +48,7 @@ def main():
                     if not clicked_something and selected_drone:
                         selected_drone.selected = False
                         selected_drone = None 
-                
-                # RIGHT CLICK: Plan Path
+                 
                 elif event.button == 3 and selected_drone:
                     path = pathfinder.search(selected_drone.pos, (mx, my)) 
                     if path: 
